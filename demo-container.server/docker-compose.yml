@@ -1,0 +1,14 @@
+version: '3.6'
+services: 
+  demo-container:
+    build: .
+    ports: 
+      - "4000:4000"
+    volumes: 
+      - .:/app
+    environment: 
+      - ENV=development
+      - PORT=4000
+networks: 
+  default:
+    name: demo-container
