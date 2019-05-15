@@ -11,7 +11,7 @@ import json
 
 from config import BaseConfig
 from detector import detect
-from utils import load_model
+from utils import load_model, is_gdrivelink, is_reflink, dwnld_img_from_url
 from constants import ROOT_PATH
 
 app = Flask(__name__)
@@ -53,7 +53,20 @@ class FileUpload(Resource):
                 else:
                     abort(400)
         elif data['links']:
-            pass
+            file = data['links']
+            mime = file.mimetype
+            if mime != 'text/plain':
+                abort(400)
+            fname = secure_filename(file.filename)
+            file.save(os.path.join(upload, fname))
+            with open(os.path.join(upload, fname)) as txt:
+                for link in txt:
+                    if is_gdrivelink(link):
+                        pass
+                    elif is_reflink(link):
+                        dwnld_img_from_url(link, upload)
+                        paths.append(os.path.join(upload, os.path.basename(link)))
+                        
         try:
             if len(paths) == 0:
                 abort(400, 'No image loaded')

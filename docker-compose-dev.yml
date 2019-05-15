@@ -1,0 +1,28 @@
+dversion: '3.6'
+services:
+  client: 
+    container_name: react-client
+    build:
+      context: ./demo-container.webclient
+      dockerfile: Dockerfile
+    volumes: 
+      - './deme-container/webclient:/usr/src/app'
+      - '/usr/src/app/node_modules'
+    ports:
+      - '3000:3000'
+    environment: 
+      - NODE_ENV=development
+    depends_on:
+      - server
+
+  server:
+    build:
+      context: ./demo-container.server
+      dockerfile: Dockerfile
+    ports: 
+      - "4000:4000"
+    volumes: 
+      - ./demo-container.server:/usr/src/app
+    environment: 
+      - FLASK_ENV=development
+      - PORT=4000

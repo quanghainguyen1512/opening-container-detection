@@ -1,0 +1,42 @@
+dversion: '3.6'
+services:
+  server:
+    build:
+      context: ./demo-container.server
+      dockerfile: Dockerfile
+    ports: 
+      - "5000:5000"
+    volumes: 
+      - ./demo-container.server:/usr/src/app
+    expose: 
+      - 5432
+    environment: 
+      - FLASK_ENV=production
+
+  client: 
+    container_name: client
+    build:
+      context: ./demo-container.webclient
+      dockerfile: Dockerfile
+    # volumes: 
+    #   - './deme-container/webclient:/usr/src/app'
+    #   - '/usr/src/app/node_modules'
+    # ports:
+    #   - '3000:3000'
+    environment: 
+      - NODE_ENV=production
+    expose: 
+      - 80
+    depends_on:
+      - server
+      
+  nginx:
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - 80:80
+    depends_on:
+      - server
+      - client

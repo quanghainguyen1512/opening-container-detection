@@ -15,3 +15,9 @@ def get_dest_with_fname(org_path):
     filename = os.path.basename(org_path)
     dest = os.path.join('static', filename)
     return dest
+
+def is_reflink(link):
+    return 'http' in link and (link[-4::1] == '.jpg' or link[-4::1] == '.png')
+
+def is_gdrivelink(link):
+    pass
