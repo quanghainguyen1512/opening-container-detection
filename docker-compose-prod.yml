@@ -1,4 +1,4 @@
-dversion: '3.6'
+version: '3.6'
 services:
   server:
     build:
@@ -29,7 +29,7 @@ services:
       - 80
     depends_on:
       - server
-      
+
   nginx:
     build:
       context: ./nginx
