@@ -4,12 +4,10 @@ services:
     build:
       context: ./demo-container.server
       dockerfile: Dockerfile
-    ports: 
-      - "5000:5000"
     volumes: 
       - ./demo-container.server:/usr/src/app
     expose: 
-      - 5432
+      - 5000
     environment: 
       - FLASK_ENV=production
 
@@ -26,7 +24,7 @@ services:
     environment: 
       - NODE_ENV=production
     expose: 
-      - 80
+      - 88
     depends_on:
       - server
 
@@ -36,7 +34,7 @@ services:
       dockerfile: Dockerfile
     restart: always
     ports:
-      - 80:80
+      - 88:88
     depends_on:
       - server
       - client

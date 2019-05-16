@@ -5,14 +5,14 @@ from werkzeug.utils import secure_filename
 
 from keras_retinanet.utils.image import read_image_bgr
 import tensorflow as tf
-import parsers
+from .parsers import file_upload
 import os
 import json
 
-from config import BaseConfig
+from .config import BaseConfig
 from detector import detect
-from utils import load_model, is_gdrivelink, is_reflink, dwnld_img_from_url
-from constants import ROOT_PATH
+from .utils import load_model, is_gdrivelink, is_reflink, dwnld_img_from_url
+from .constants import ROOT_PATH
 
 app = Flask(__name__)
 
@@ -29,17 +29,17 @@ class HelloWorld(Resource):
 
 @ns.route('/upload')
 class FileUpload(Resource):
-    @ns.expect(parsers.file_upload)
+    @ns.expect(file_upload)
     def post(self):
         # data = pars.parse_args()
         if model is None:
             abort(404, 'Model not loaded')
 
         if len(os.listdir(os.path.join(ROOT_PATH, 'static'))) > 0: 
-            os.system('rm {}/*'.format(static))
+            os.system('rm {}/*'.format(os.path.join(ROOT_PATH, 'static')))
 
         upload = os.path.join(ROOT_PATH, app.config['UPLOAD_FOLDER'])
-        data = parsers.file_upload.parse_args()
+        data = file_upload.parse_args()
         paths = []
         
         if data['images']:

@@ -3,3 +3,4 @@ resource
 static
 upload
 .vscode
+__pycache__
