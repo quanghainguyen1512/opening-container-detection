@@ -79,18 +79,4 @@ class FileUpload(Resource):
             abort(500, str(e))
         
 
-model = None
-if __name__ == "__main__":
-    model = load_model()
-    
-    app.config.from_object('config.BaseConfig')
-
-    static = os.path.join(ROOT_PATH, 'static')
-    if not os.path.exists(static):
-        os.makedirs(static)
-
-    upload = os.path.join(ROOT_PATH, app.config['UPLOAD_FOLDER'])
-    if not os.path.exists(upload):
-        os.makedirs(upload)
-    
-    app.run()
+model = load_model()
