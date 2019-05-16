@@ -1,6 +1,6 @@
 import os
 import urllib.request
-from constants import ROOT_PATH
+from .constants import ROOT_PATH
 from keras_retinanet import models
 
 def dwnld_img_from_url(link, dest):

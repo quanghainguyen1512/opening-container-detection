@@ -17,7 +17,7 @@ from threading import Thread
 # set tf backend to allow memory to grow, instead of claiming everything
 import tensorflow as tf
 
-from utils import get_dest_with_fname
+from .utils import get_dest_with_fname
 
 def get_session():
     config = tf.ConfigProto()
