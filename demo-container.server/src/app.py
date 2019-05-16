@@ -10,7 +10,7 @@ import os
 import json
 
 from .config import BaseConfig
-from detector import detect
+from .detector import detect
 from .utils import load_model, is_gdrivelink, is_reflink, dwnld_img_from_url
 from .constants import ROOT_PATH
 

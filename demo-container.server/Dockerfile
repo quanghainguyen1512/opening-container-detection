@@ -13,4 +13,4 @@ COPY . /usr/src/app
 # EXPOSE 5000
 # ENTRYPOINT [ "python", "app.py" ]
 # CMD ["/usr/src/app/entrypoint-prod.sh"]
-ENTRYPOINT [ "gunicorn", "-b 0.0.0.0:5000", "app" ]
+ENTRYPOINT [ "gunicorn", "-b 0.0.0.0:5000", "wsgi:application" ]
