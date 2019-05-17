@@ -24,7 +24,7 @@ services:
     environment: 
       - NODE_ENV=production
     expose: 
-      - 88
+      - 80
     depends_on:
       - server
 
@@ -34,7 +34,8 @@ services:
       dockerfile: Dockerfile
     restart: always
     ports:
-      - 88:88
+      - 88:80/udp
+      - 5000:5000
     depends_on:
       - server
       - client
