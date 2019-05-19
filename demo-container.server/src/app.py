@@ -14,13 +14,26 @@ from .detector import detect
 from .utils import load_model, is_gdrivelink, is_reflink, dwnld_img_from_url
 from .constants import ROOT_PATH
 
+
 app = Flask(__name__)
+app.config.from_object('src.config.BaseConfig')
 
 CORS(app=app)
 api = Api(app, version='1.0', title='Demo API', validate=False)
 ns = api.namespace('api', description='api')
 
+
 graph = tf.get_default_graph()
+model = load_model()
+
+
+static = os.path.join(ROOT_PATH, 'static')
+if not os.path.exists(static):
+    os.makedirs(static)
+upload = os.path.join(ROOT_PATH, app.config['UPLOAD_FOLDER'])
+if not os.path.exists(upload):
+    os.makedirs(upload)
+
 
 @ns.route('/')
 class HelloWorld(Resource):
@@ -35,10 +48,9 @@ class FileUpload(Resource):
         if model is None:
             abort(404, 'Model not loaded')
 
-        if len(os.listdir(os.path.join(ROOT_PATH, 'static'))) > 0: 
-            os.system('rm {}/*'.format(os.path.join(ROOT_PATH, 'static')))
+        # if len(os.listdir(os.path.join(ROOT_PATH, 'static'))) > 0: 
+        #     os.system('rm {}/*'.format(os.path.join(ROOT_PATH, 'static')))
 
-        upload = os.path.join(ROOT_PATH, app.config['UPLOAD_FOLDER'])
         data = file_upload.parse_args()
         paths = []
         
@@ -77,6 +89,3 @@ class FileUpload(Resource):
             }, 201
         except Exception as e:
             abort(500, str(e))
-        
-
-model = load_model()

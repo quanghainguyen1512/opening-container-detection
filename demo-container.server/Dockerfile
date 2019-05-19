@@ -6,8 +6,8 @@ COPY ./requirements.txt /usr/src/app/requirements.txt
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
-COPY ./entrypoint-prod.sh /usr/src/app/entrypoint-prod.sh
-RUN chmod +x /usr/src/app/entrypoint-prod.sh
+# COPY ./entrypoint-prod.sh /usr/src/app/entrypoint-prod.sh
+# RUN chmod +x /usr/src/app/entrypoint-prod.sh
 
 COPY . /usr/src/app
 # EXPOSE 5000

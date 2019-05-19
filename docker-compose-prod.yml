@@ -1,11 +1,12 @@
 version: '3.6'
 services:
   server:
+    container_name: api
     build:
       context: ./demo-container.server
       dockerfile: Dockerfile
-    volumes: 
-      - ./demo-container.server:/usr/src/app
+#    volumes: 
+#      - ./demo-container.server:/usr/src/app
     expose: 
       - 5000
     environment: 
@@ -29,12 +30,13 @@ services:
       - server
 
   nginx:
+    container_name: nginx-server
     build:
       context: ./nginx
       dockerfile: Dockerfile
     restart: always
     ports:
-      - 88:80/udp
+      - 80:80
       - 5000:5000
     depends_on:
       - server

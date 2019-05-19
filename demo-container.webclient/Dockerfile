@@ -8,6 +8,9 @@ COPY package.json /usr/src/app/package.json
 RUN npm install --silent
 RUN npm install react-scripts@3.0.0 -g --silent
 
+ARG API_URL
+ENV API_URL $API_URL
+
 COPY . /usr/src/app
 RUN npm run build
 
