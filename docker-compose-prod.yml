@@ -41,3 +41,5 @@ services:
     depends_on:
       - server
       - client
+    volumes: 
+      - "./custom_proxy_settings.conf:/etc/nginx/conf.d/custom_proxy_settings.conf"
