@@ -27,7 +27,7 @@ graph = tf.get_default_graph()
 model = load_model()
 
 
-static = os.path.join(ROOT_PATH, 'static')
+static = os.path.join(ROOT_PATH, 'src', 'static')
 if not os.path.exists(static):
     os.makedirs(static)
 upload = os.path.join(ROOT_PATH, app.config['UPLOAD_FOLDER'])
@@ -82,7 +82,8 @@ class FileUpload(Resource):
         try:
             if len(paths) == 0:
                 abort(400, 'No image loaded')
-            urls = detect(graph, model, paths)
+            fnames = detect(graph, model, paths)
+            urls = [url_for('static', filename=fn) for fn in fnames]
             return {
                 'status': '{} file processed'.format(index + 1),
                 'images': urls

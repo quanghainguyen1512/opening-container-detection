@@ -13,7 +13,7 @@ def load_model():
 
 def get_dest_with_fname(org_path):
     filename = os.path.basename(org_path)
-    dest = os.path.join('static', filename)
+    dest = os.path.join('src' ,'static', filename)
     return dest
 
 def is_reflink(link):
