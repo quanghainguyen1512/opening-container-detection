@@ -83,7 +83,8 @@ class FileUpload(Resource):
             if len(paths) == 0:
                 abort(400, 'No image loaded')
             fnames = detect(graph, model, paths)
-            urls = [url_for('static', filename=fn) for fn in fnames]
+            #urls = [url_for('static', filename=fn) for fn in fnames]
+            urls = [f'/prediction/{fn}' for fn in fnames]
             return {
                 'status': '{} file processed'.format(index + 1),
                 'images': urls

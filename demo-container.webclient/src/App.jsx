@@ -16,10 +16,6 @@ class App extends React.Component {
             {
                original: 'http://lorempixel.com/1000/600/nature/2/',
                thumbnail: 'http://lorempixel.com/250/150/nature/2/'
-            },
-            {
-               original: 'http://lorempixel.com/1000/600/nature/3/',
-               thumbnail: 'http://lorempixel.com/250/150/nature/3/'
             }
             //https://sumeyyaarar.com/wp-content/uploads/2018/07/empty_baslik.png
          ]
@@ -76,6 +72,7 @@ class App extends React.Component {
    }
 
    onUploadClick = () => {
+      console.log(constants.BASE_URL)
       this.upload.click()
       // this.setState({ loading: !this.state.loading })
    }

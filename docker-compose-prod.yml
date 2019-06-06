@@ -5,18 +5,20 @@ services:
     build:
       context: ./demo-container.server
       dockerfile: Dockerfile
-#    volumes: 
-#      - ./demo-container.server:/usr/src/app
+    volumes: 
+      - ./containerShared/prediction:/usr/src/app/src/static
+      - ./containerShared/upload:/usr/scr/app/upload
     expose: 
       - 5000
     environment: 
       - FLASK_ENV=production
-
   client: 
     container_name: client
     build:
       context: ./demo-container.webclient
       dockerfile: Dockerfile
+      args:
+        - API_URL=${API_URL}
     # volumes: 
     #   - './deme-container/webclient:/usr/src/app'
     #   - '/usr/src/app/node_modules'
@@ -36,10 +38,7 @@ services:
       dockerfile: Dockerfile
     restart: always
     ports:
-      - 80:80
-      - 5000:5000
+      - 8000:80
     depends_on:
       - server
       - client
-    volumes: 
-      - "./custom_proxy_settings.conf:/etc/nginx/conf.d/custom_proxy_settings.conf"

@@ -53,6 +53,7 @@ def detect(graph, model, image_paths):
             dest = get_dest_with_fname(path)
             # thr = Thread(target=save_det, args=(draw, dest))
             # thr.start()
-            cv2.imwrite(dest, cv2.cvtColor(draw, cv2.COLOR_RGB2BGR))
+            cv2.imwrite(dest, cv2.cvtColor(draw, cv2.COLOR_BGR2RGB))
             saved.append(os.path.basename(dest))
     return saved
+
