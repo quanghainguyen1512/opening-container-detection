@@ -28,7 +28,7 @@ def get_session():
 keras.backend.tensorflow_backend.set_session(get_session())
 
 def detect(graph, model, image_paths):
-    label_to_name = {0: 'open', 1: 'close'}
+    label_to_name = {0: 'open', 1: 'closed'}
     saved = []
     for path in image_paths:
         img = read_image_bgr(path)

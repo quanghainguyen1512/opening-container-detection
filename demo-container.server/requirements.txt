@@ -6,4 +6,3 @@ numpy==1.16.2
 keras==2.2.4
 tensorflow==1.13.1
 gunicorn==19.9.0
-git+https://github.com/quanghainguyen1512/keras-retinanet@master

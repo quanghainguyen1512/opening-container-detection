@@ -6,8 +6,8 @@ services:
       context: ./demo-container.server
       dockerfile: Dockerfile
     volumes: 
-      - ./containerShared/prediction:/usr/src/app/src/static
-      - ./containerShared/upload:/usr/scr/app/upload
+      - /data/user/ds_prod/containerShared/prediction:/usr/src/app/src/static
+      - /data/user/ds_prod/containerShared/upload:/usr/src/app/upload
     expose: 
       - 5000
     environment: 
@@ -17,8 +17,6 @@ services:
     build:
       context: ./demo-container.webclient
       dockerfile: Dockerfile
-      args:
-        - API_URL=${API_URL}
     # volumes: 
     #   - './deme-container/webclient:/usr/src/app'
     #   - '/usr/src/app/node_modules'

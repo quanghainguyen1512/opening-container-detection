@@ -1,6 +1,5 @@
-import React, { } from 'react';
+import React from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
-// import Spinner from 'react-spinner-material';
 import * as constants from './constants';
 import ImageGallery from 'react-image-gallery';
 import { RingLoader } from 'react-spinners';
@@ -12,21 +11,11 @@ class App extends React.Component {
       super();
       this.state = {
          loading: false,
-         images: [
-            {
-               original: 'http://lorempixel.com/1000/600/nature/2/',
-               thumbnail: 'http://lorempixel.com/250/150/nature/2/'
-            }
-            //https://sumeyyaarar.com/wp-content/uploads/2018/07/empty_baslik.png
-         ]
+         images: []
       }
    }
 
    componentDidMount() {
-      // if (this.upload !== undefined)
-      // this.upload.addEventListener('change', async (e) => {
-
-      // })
       const rowTool = document.getElementById('rowTool')
       this.setState({ rowToolHeight: rowTool.getBoundingClientRect().height })
    }
@@ -64,7 +53,7 @@ class App extends React.Component {
          this.setState({ images: imgs })
          console.log(imgs)
       }
-      // this.setState({images: response.json()})
+
       else {
          alert('Something went wrong')
       }
@@ -74,7 +63,6 @@ class App extends React.Component {
    onUploadClick = () => {
       console.log(constants.BASE_URL)
       this.upload.click()
-      // this.setState({ loading: !this.state.loading })
    }
 
    handleChange = async (e) => {
@@ -97,7 +85,6 @@ class App extends React.Component {
                      right: 0,
                      backgroundColor: 'rgba(188, 188, 188, 0.5)'
                   }}>
-                  {/* <div className='flex-row d-flex justify-content-center' style={{flex: 1, backgroundColor: 'rgba(188, 188, 188, 0.5)'}}> */}
                   <RingLoader
                      css={override}
                      sizeUnit={"px"}
@@ -105,7 +92,6 @@ class App extends React.Component {
                      color={'#c91a1a'}
                      loading={this.state.loading}
                   />
-                  {/* </div> */}
                </div> :
                undefined
             }
@@ -120,35 +106,45 @@ class App extends React.Component {
                         onClick={this.onUploadClick}
                         style={style.button}
                      >
-                        Open
+                        UPLOAD
                      </Button>
                      <input onChange={this.uploadImage} multiple={true} type='file' ref={(ref) => this.upload = ref} style={{ display: 'none' }} />
                   </Col>
-                  {/* <Col md='auto' className='flex-row d-flex justify-content-center'>
-                     <Button
-                        variant='warning'
-                        className='btn-lg'
-                        onClick={this.getDetection}
-                        style={style.button}
-                     >
-                        Detect
-                     </Button>
-                  </Col> */}
-                  {/* <Col /> */}
                </Row>
                <Row
                   id='rowImg'
                   style={{ backgroundColor: 'darkgray', minHeight: window.innerHeight - this.state.rowToolHeight }}
-                  className='justify-content-center'>
-                  <div className='img-container d-flex'>
-                     <ImageGallery
-                        items={this.state.images}
-                        thumbnailPosition="top"
-                        showPlayButton={false}
-                        showFullscreenButton={false}
-                        showNav={true}
-                     />
-                  </div>
+                  className='justify-content-stretch'>
+                  {
+                     this.state.images.length > 0 ?
+                     <div className='img-container d-flex'>
+                        <ImageGallery
+                           items={this.state.images}
+                           thumbnailPosition="top"
+                           showPlayButton={false}
+                           showFullscreenButton={false}
+                           showNav={true}
+                        /> 
+                     </div> :
+                     // <img src='/img/bg.jpg' />
+                    <div id="default">
+                       	
+                        <div class="jumbotron">
+                           <h1>Opening Container Detector</h1>
+
+                           <p>
+                              <br></br>
+                              <b>Training data</b>: Collecting data from Google Image <br/>
+                              <b>Backend</b>: Flask <br />
+                              <br />
+                              <br />
+                              Click "UPLOAD" button at top-right corner to upload images
+                           </p>
+                        
+                           <span class='label label-info' id="upload-file-info"></span>
+                        </div>
+                     </div>
+                  }
                </Row>
             </div>
          </Container>
